@@ -8,7 +8,7 @@ Write-Host 'Downloading shared source files...'
 Write-Host 'Shared source files are downloaded'
 
 Write-Host 'Checking file difference...'
-git -c core.safecrlf=false diff --ignore-space-at-eol --exit-code
+git -c core.safecrlf=false diff --ignore-space-at-eol --exit-code -- :!package*.json :!**/package.json
 if ($LastExitCode -ne 0)
 {
     Write-Error 'Shared source files are updated. Please run eng/DownloadSharedSource.ps1'
