@@ -4,7 +4,16 @@ $AutoRestPluginProject = Resolve-Path (Join-Path $repoRoot 'src' 'AutoRest.CShar
 
 function Invoke($command, $executePath=$repoRoot)
 {
-    Write-Host "> $command"
+    $pipelineBuild = !!$env:TF_BUILD
+    $startTime = Get-Date
+
+    if($pipelineBuild) {
+        Write-Host "##[command]$command"
+        Write-Host "##[group]Command output"
+    } else {
+        Write-Host "> $command"
+    }
+
     Push-Location $executePath
     if ($IsLinux -or $IsMacOs)
     {
@@ -14,11 +23,25 @@ function Invoke($command, $executePath=$repoRoot)
     {
         cmd /c "$command 2>&1"
     }
+
+    $duration = (Get-Date) - $startTime
+    
     Pop-Location
     
+    if($pipelineBuild) {
+        Write-Host "##[endgroup]"
+    }
+
     if($LastExitCode -ne 0)
     {
-        Write-Error "Command failed to execute: $command"
+        if($pipelineBuild) {
+            Write-Error "##[error]Command failed to execute ($duration): $command"
+        } else {
+            Write-Error "Command failed to execute ($duration): $command"
+        }
+    }
+    else {
+        Write-Host "Command succeeded ($duration):  $command"
     }
 }
 
@@ -140,9 +163,23 @@ function Get-AutoRestProject()
     $AutoRestPluginProject;
 }
 
+function Set-ConsoleEncoding
+{
+    [CmdletBinding()]
+    param
+    (
+        [string] $encoding = 'utf-8'
+    )
+
+    $outputEncoding = [System.Text.Encoding]::GetEncoding($encoding)
+    [Console]::OutputEncoding = $outputEncoding
+    [Console]::InputEncoding = $outputEncoding
+}
+
 Export-ModuleMember -Function "Invoke"
 Export-ModuleMember -Function "Invoke-AutoRest"
 Export-ModuleMember -Function "AutoRest-Reset"
 Export-ModuleMember -Function "Get-AutoRestProject"
 Export-ModuleMember -Function "Invoke-TypeSpec"
 Export-ModuleMember -Function "Invoke-TypeSpecSetup"
+Export-ModuleMember -Function "Set-ConsoleEncoding"

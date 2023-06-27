@@ -2,6 +2,11 @@
   "name": "@autorest/csharp",
   "private": true,
   "description": "package.json intended for in-repo use only, package.json used for publishing is located in src/AutoRest.CSharp/package.json",
+  "scripts": {
+    "init": "pwsh ./eng/Install-NpmPackages.ps1",
+    "build": "pwsh ./eng/build.ps1",
+    "test": "pwsh ./eng/test.ps1"
+  },
   "devDependencies": {
     "@azure-tools/typespec-csharp": "file:src/TypeSpec.Extension/Emitter.Csharp",
     "@azure-tools/cadl-ranch-mockapis": "file:test/CadlRanchMockApis",

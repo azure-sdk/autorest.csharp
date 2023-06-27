@@ -1,0 +1,20 @@
+parameters:
+- name: UseTypeSpecNext
+  displayName: Use TypeSpec "next" version
+  type: boolean
+  default: false
+
+pool:
+  name: azsdk-pool-mms-win-2022-general
+  vmImage: windows-2022
+
+extends:
+  template: templates/pipeline/build.yml
+  parameters:
+    BuildAlphaVersion: true
+    UseTypeSpecNext: ${{ parameters.UseTypeSpecNext }}
+    IncludeTestStage: ${{ parameters.UseTypeSpecNext }}
+    PublishPackages: true
+    PublishDependsOn:
+    - Build
+    PublishTarget: 'internal'
