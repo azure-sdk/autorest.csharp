@@ -8,8 +8,7 @@ function Invoke($command, $executePath=$repoRoot)
     $startTime = Get-Date
 
     if($pipelineBuild) {
-        Write-Host "##[command]$command"
-        Write-Host "##[group]Command output"
+        Write-Host "##[group]$command"
     } else {
         Write-Host "> $command"
     }
@@ -35,13 +34,13 @@ function Invoke($command, $executePath=$repoRoot)
     if($LastExitCode -ne 0)
     {
         if($pipelineBuild) {
-            Write-Error "##[error]Command failed to execute ($duration): $command"
+            Write-Error "##[error]Command failed to execute ($duration): $command`n"
         } else {
-            Write-Error "Command failed to execute ($duration): $command"
+            Write-Error "Command failed to execute ($duration): $command`n"
         }
     }
     else {
-        Write-Host "Command succeeded ($duration):  $command"
+        Write-Host "Command succeeded ($duration)`n"
     }
 }
 
