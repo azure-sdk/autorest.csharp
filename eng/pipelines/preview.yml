@@ -6,12 +6,12 @@ parameters:
 
 resources:
   repositories:
-    - repository: tools
+    - repository: azure-sdk-tools
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-tools
       ref: refs/heads/users/pahallis/cookiecutter
-    - repository: sdk
+    - repository: sdk-repository
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-for-net
