@@ -1,7 +1,6 @@
 param(
     [string] $BuildNumber,
     [string] $BuildAlphaVersion,
-    [string] $UseTypeSpecNext,
     [string] $Output
 )
 
@@ -11,7 +10,6 @@ $root = (Resolve-Path "$PSScriptRoot/..").Path.Replace('\', '/')
 Import-Module "$root/eng/Generation.psm1" -Force -DisableNameChecking
 Set-ConsoleEncoding
 
-[bool]$UseTypeSpecNext = $UseTypeSpecNext -ieq "true"
 [bool]$BuildAlphaVersion = $BuildAlphaVersion -ieq "true"
 
 $artifacts = "$root/artifacts"
@@ -27,9 +25,14 @@ if (Test-Path "$output") {
     Remove-Item -Recurse -Force "$output"
 }
 
+if ($UseTypeSpecNext) {
+    Write-Host "Using TypeSpec.Next"
+    $env:TypeSpecVersion = "next"
+}
+
 # create the output folders
-New-Item -ItemType Directory -Force -Path "$artifacts"
-New-Item -ItemType Directory -Force -Path "$output"
+New-Item -ItemType Directory -Force -Path "$artifacts" | Out-Null
+New-Item -ItemType Directory -Force -Path "$output" | Out-Null
 
 $generatorVersion = node -p -e "require('$root/src/AutoRest.CSharp/package.json').version"
 $emitterVersion = node -p -e "require('$root/src/TypeSpec.Extension/Emitter.Csharp/package.json').version"
@@ -66,9 +69,6 @@ $packageMatrix = [ordered]@{
 }
 
 $packageMatrix | ConvertTo-Json | Set-Content $output/packages.json
-
-Write-Host "Setting output variable 'packageMatrix'"
-Write-Host "##vso[task.setvariable variable=packageMatrix;isoutput=true]$($packageMatrix | ConvertTo-Json -Compress)"
 
 # build the nuget package
 
