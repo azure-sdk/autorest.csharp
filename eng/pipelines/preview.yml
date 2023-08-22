@@ -10,12 +10,12 @@ resources:
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-tools
-      ref: refs/heads/cookiecutter
+      ref: refs/heads/users/pahallis/cookiecutter
     - repository: sdk-repository
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-for-net
-      ref: refs/heads/cookiecutter
+      ref: refs/heads/users/pahallis/cookiecutter
 
 pool:
   name: azsdk-pool-mms-win-2022-general
