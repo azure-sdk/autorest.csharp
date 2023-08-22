@@ -36,7 +36,8 @@ try {
         }
 
         Write-Host "Using TypeSpec.Next"
-        Invoke "npx -y @azure-tools/typespec-bump-deps@0.3.0 --use-peer-ranges package.json ./src/TypeSpec.Extension/Emitter.Csharp/package.json"
+        Invoke "npx -y @azure-tools/typespec-bump-deps@0.3.0 --add-npm-overrides package.json"
+        Invoke "npx -y @azure-tools/typespec-bump-deps@0.3.0 --use-peer-ranges ./src/TypeSpec.Extension/Emitter.Csharp/package.json"
         Invoke "npm install"
     } else {
         Invoke "npm ci"
