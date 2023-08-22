@@ -1,6 +1,6 @@
 {
     "name": "@azure-tools/typespec-csharp",
-    "version": "0.2.0",
+    "version": "0.2.0-alpha.20231111.1",
     "author": "Microsoft Corporation",
     "description": "The typespec library that can be used to generate C# models from a TypeSpec REST protocol binding",
     "homepage": "https://github.com/Microsoft/typespec",
@@ -49,7 +49,7 @@
         "typescript": "~5.1.5"
     },
     "dependencies": {
-        "@autorest/csharp": "3.0.0-beta.20230309.1",
+        "@autorest/csharp": "3.0.0-alpha.20231111.1",
         "@azure-tools/typespec-azure-core": "0.33.1",
         "@azure-tools/typespec-client-generator-core": "0.33.0",
         "@typespec/compiler": "0.47.1",

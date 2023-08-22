@@ -4,12 +4,25 @@ parameters:
   type: boolean
   default: false
 
+resources:
+  repositories:
+    - repository: azure-sdk-tools
+      type: github
+      endpoint: Azure
+      name: Azure/azure-sdk-tools
+      ref: refs/heads/cookiecutter
+    - repository: sdk-repository
+      type: github
+      endpoint: Azure
+      name: Azure/azure-sdk-for-net
+      ref: refs/heads/cookiecutter
+
 pool:
   name: azsdk-pool-mms-win-2022-general
   vmImage: windows-2022
 
 extends:
-  template: templates/pipeline/build.yml
+  template: eng/pipelines/templates/stages/archetype-autorest-preview.yml@azure-sdk-tools
   parameters:
     BuildAlphaVersion: true
     UseTypeSpecNext: ${{ parameters.UseTypeSpecNext }}
@@ -18,3 +31,4 @@ extends:
     PublishDependsOn:
     - Build
     PublishTarget: 'internal'
+    SelfRepositoryName: autorest.csharp
