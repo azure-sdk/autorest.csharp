@@ -106,15 +106,10 @@ try {
     #pack the emitter
     $file = Invoke "npm pack -q" -executePath $PWD
     Copy-Item $file -Destination "$output/packages"
-
-    if ($BuildNumber) {
-        # restore the original package.json
-        Set-Content -Path "package.json" -Value $originalContent -NoNewline
-    }
 }
 finally
 {
     Pop-Location
 }
 
-. $root/eng/New-EmitterPackageJson.ps1 -PackageJsonPath "$root/src/TypeSpec.Extension/Emitter.Csharp/package.json" -OutputDirectory $output
+. $root/eng/New-EmitterPackageJson.ps1 -PackageJsonPath "./package.json" -OutputDirectory $output
