@@ -50,24 +50,6 @@ if ($BuildNumber) {
     Write-Host "##vso[task.setvariable variable=emitterVersion;isoutput=true]$emitterVersion"
 }
 
-$packageMatrix = [ordered]@{
-    "generator" = [ordered]@{
-        "file" = "autorest-csharp-$generatorVersion.tgz"
-        "version" = $generatorVersion
-        "type" = "npm"
-    }
-    "emitter" = [ordered]@{
-        "file" = "azure-tools-typespec-csharp-$emitterVersion.tgz"
-        "version" = $emitterVersion
-        "type" = "npm"
-    }
-    "nuget_generator" = [ordered]@{
-        "file" = "Microsoft.Azure.AutoRest.CSharp.$generatorVersion.nupkg"
-        "version" = $generatorVersion
-        "type" = "nuget"
-    }
-}
-
 $packageMatrix | ConvertTo-Json | Set-Content $output/packages.json
 
 # build the nuget package
