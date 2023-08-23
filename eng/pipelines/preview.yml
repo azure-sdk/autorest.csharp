@@ -35,8 +35,6 @@ extends:
       type: npm
     - file: 'Microsoft.Azure.AutoRest.CSharp.*.nupkg'
       type: nuget
-    PublishPackages: true
     PublishTarget: 'internal'
     PublishDependsOn:
     - Build
-
