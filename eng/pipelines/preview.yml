@@ -41,3 +41,18 @@ extends:
     PublishTarget: 'internal'
     PublishDependsOn:
     - Build
+    SdkInitializationSteps:
+    - pwsh: |
+        $generatorVersion = "${{ stageDependencies.Build.Build.outputs['build_script.generatorVersion'] }}"
+        $path = './eng/Packages.Data.props'
+
+        Write-Host "Updating Autorest.CSharp to $generatorVersion in $path"
+        
+        $content = Get-Content -Raw $path
+        $newContent = $content -replace `
+            '<PackageReference Update="Microsoft.Azure.AutoRest.CSharp" Version=".*?" />',
+            "<PackageReference Update=`"Microsoft.Azure.AutoRest.CSharp`" Version=`"$generatorVersion`" PrivateAssets=`"All`" />"
+
+        $newContent Set-Content $path -NoNewline
+      displayName: 'Update Packages.Data.props'
+      workingDirectory: $(Build.SourcesDirectory)/sdk-repository
