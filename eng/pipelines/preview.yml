@@ -27,8 +27,16 @@ extends:
     BuildAlphaVersion: true
     UseTypeSpecNext: ${{ parameters.UseTypeSpecNext }}
     IncludeTestStage: ${{ parameters.UseTypeSpecNext }}
+    SelfRepositoryName: autorest.csharp
+    Packages:
+    - file: autorest-csharp-*.tgz
+      type: npm
+    - file: azure-tools-typespec-csharp-*.tgz
+      type: npm
+    - file: 'Microsoft.Azure.AutoRest.CSharp.*.nupkg'
+      type: nuget
     PublishPackages: true
+    PublishTarget: 'internal'
     PublishDependsOn:
     - Build
-    PublishTarget: 'internal'
-    SelfRepositoryName: autorest.csharp
+
