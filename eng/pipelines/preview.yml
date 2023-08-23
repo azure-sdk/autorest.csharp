@@ -29,11 +29,14 @@ extends:
     IncludeTestStage: ${{ parameters.UseTypeSpecNext }}
     SelfRepositoryName: autorest.csharp
     Packages:
-    - file: autorest-csharp-*.tgz
+    - name: generator
+      file: autorest-csharp-*.tgz
       type: npm
-    - file: azure-tools-typespec-csharp-*.tgz
+    - name: emitter
+      file: azure-tools-typespec-csharp-*.tgz
       type: npm
-    - file: 'Microsoft.Azure.AutoRest.CSharp.*.nupkg'
+    - name: nuget package
+      file: 'Microsoft.Azure.AutoRest.CSharp.*.nupkg'
       type: nuget
     PublishTarget: 'internal'
     PublishDependsOn:
