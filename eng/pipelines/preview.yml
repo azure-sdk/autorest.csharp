@@ -43,7 +43,7 @@ extends:
     - Build
     SdkInitializationSteps:
     - pwsh: |
-        $generatorVersion = "${{ stageDependencies.Build.Build.outputs['build_script.generatorVersion'] }}"
+        $generatorVersion = "$[stageDependencies.Build.Build.outputs['build_script.generatorVersion']]"
         $path = './eng/Packages.Data.props'
 
         Write-Host "Updating Autorest.CSharp to $generatorVersion in $path"
