@@ -134,3 +134,5 @@ finally
 {
     Pop-Location
 }
+
+. $root/eng/New-EmitterPackageJson.ps1 -PackageJsonPath "$root/src/TypeSpec.Extension/Emitter.Csharp/package.json" -OutputDirectory $output
