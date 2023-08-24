@@ -53,6 +53,6 @@ extends:
             '<PackageReference Update="Microsoft.Azure.AutoRest.CSharp" Version=".*?" />',
             "<PackageReference Update=`"Microsoft.Azure.AutoRest.CSharp`" Version=`"$generatorVersion`" PrivateAssets=`"All`" />"
 
-        $newContent Set-Content $path -NoNewline
+        $newContent | Set-Content $path -NoNewline
       displayName: 'Update Packages.Data.props'
       workingDirectory: $(Build.SourcesDirectory)/sdk-repository
