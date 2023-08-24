@@ -43,7 +43,9 @@ extends:
     - Build
     SdkInitializationSteps:
     - pwsh: |
-        $generatorVersion = "$[stageDependencies.Build.Build.outputs['build_script.generatorVersion']]"
+        $packageVersions = Get-Content "$(buildArtifacts)/package-versions.json" -Raw | ConvertFrom-Json
+        $generatorVersion = $packageVersions.generator
+
         $path = './eng/Packages.Data.props'
 
         Write-Host "Updating Autorest.CSharp to $generatorVersion in $path"
