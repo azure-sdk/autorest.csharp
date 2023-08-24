@@ -50,7 +50,12 @@ if ($BuildNumber) {
     Write-Host "##vso[task.setvariable variable=emitterVersion;isoutput=true]$emitterVersion"
 }
 
-$packageMatrix | ConvertTo-Json | Set-Content $output/packages.json
+$packageMatrix = [ordered]@{
+    "generator" = $generatorVersion
+    "emitter" = $emitterVersion
+}
+
+$packageMatrix | ConvertTo-Json | Set-Content $output/package-versions.json
 
 # build the nuget package
 
