@@ -27,7 +27,6 @@ extends:
     BuildAlphaVersion: true
     UseTypeSpecNext: ${{ parameters.UseTypeSpecNext }}
     IncludeTestStage: ${{ parameters.UseTypeSpecNext }}
-    SelfRepositoryName: autorest.csharp
     Packages:
     - name: generator
       file: autorest-csharp-*.tgz
@@ -43,7 +42,7 @@ extends:
     - Build
     SdkInitializationSteps:
     - pwsh: |
-        $packageVersions = Get-Content "$(buildArtifacts)/package-versions.json" -Raw | ConvertFrom-Json
+        $packageVersions = Get-Content "$(buildArtifactsPath)/package-versions.json" -Raw | ConvertFrom-Json
         $generatorVersion = $packageVersions.generator
 
         $path = './eng/Packages.Data.props'
@@ -57,4 +56,4 @@ extends:
 
         $newContent | Set-Content $path -NoNewline
       displayName: 'Update Packages.Data.props'
-      workingDirectory: $(Build.SourcesDirectory)/sdk-repository
+      workingDirectory: $(sdkRepositoryPath)
