@@ -6,15 +6,15 @@ parameters:
 
 resources:
   repositories:
-    - repository: azure-sdk-tools
-      type: github
-      endpoint: Azure
-      name: Azure/azure-sdk-tools
-      ref: refs/heads/users/pahallis/cookiecutter
     - repository: sdk-repository
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-for-net
+      ref: refs/heads/users/pahallis/cookiecutter
+    - repository: azure-sdk-tools
+      type: github
+      endpoint: Azure
+      name: Azure/azure-sdk-tools
       ref: refs/heads/users/pahallis/cookiecutter
 
 pool:
@@ -24,6 +24,7 @@ pool:
 extends:
   template: eng/pipelines/templates/stages/archetype-autorest-preview.yml@azure-sdk-tools
   parameters:
+    RegenerationJobCount: 20
     BuildAlphaVersion: true
     UseTypeSpecNext: ${{ parameters.UseTypeSpecNext }}
     IncludeTestStage: ${{ parameters.UseTypeSpecNext }}
