@@ -43,7 +43,7 @@ try {
         Invoke "npm ci"
     }
 
-    Invoke "npm ls -a"
+    Invoke "npm ls -a" -GroupOutput
 
     Write-Host "Adding package.json files to git index to avoid diff detection"
     Invoke "git add ./package.json ./package-lock.json ./src/TypeSpec.Extension/Emitter.Csharp/package.json"

@@ -2,12 +2,12 @@ $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 $autoRestBinary = "npx --no-install autorest"
 $AutoRestPluginProject = Resolve-Path (Join-Path $repoRoot 'src' 'AutoRest.CSharp')
 
-function Invoke($command, $executePath=$repoRoot)
+function Invoke($command, $executePath=$repoRoot, [switch]$GroupOutput)
 {
     $pipelineBuild = !!$env:TF_BUILD
     $startTime = Get-Date
 
-    if($pipelineBuild) {
+    if($pipelineBuild -and $GroupOutput) {
         Write-Host "##[group]$command"
     } else {
         Write-Host "> $command"
@@ -27,7 +27,7 @@ function Invoke($command, $executePath=$repoRoot)
     
     Pop-Location
     
-    if($pipelineBuild) {
+    if($pipelineBuild -and $GroupOutput) {
         Write-Host "##[endgroup]"
     }
 
