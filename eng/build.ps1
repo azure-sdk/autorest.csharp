@@ -93,7 +93,7 @@ finally
 Push-Location "$root/src/TypeSpec.Extension/Emitter.Csharp"
 try {
     Write-Host "Working in $PWD"
-    Invoke "npm run build" -executePath $PWD
+    Invoke "npm run build" -executePath $PWD -GroupOutput
 
     if ($BuildNumber) {
         Write-Host "Updating package.json use the new @autorest/csharp version`n"
