@@ -112,8 +112,6 @@ try {
     #pack the emitter
     $file = Invoke "npm pack -q" -executePath $PWD
     Copy-Item $file -Destination "$output/packages"
-
-    . $root/eng/New-EmitterPackageJson.ps1 -PackageJsonPath "./package.json" -OutputDirectory $output
 }
 finally
 {
