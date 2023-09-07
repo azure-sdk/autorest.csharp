@@ -12,5 +12,14 @@
     "@azure-tools/cadl-ranch-mockapis": "file:test/CadlRanchMockApis",
     "@microsoft.azure/autorest.testserver": "3.3.48",
     "autorest": "3.6.3"
+  },
+  "overrides": {
+    "@typespec/compiler": "0.48.0-dev.14",
+    "@typespec/rest": "0.48.0-dev.0",
+    "@typespec/http": "0.48.0-dev.5",
+    "@typespec/versioning": "0.48.0-dev.0",
+    "@azure-tools/typespec-client-generator-core": "0.34.0-dev.8",
+    "@azure-tools/typespec-azure-core": "0.34.0-dev.10",
+    "@typespec/eslint-config-typespec": "0.48.0-dev.0"
   }
 }
