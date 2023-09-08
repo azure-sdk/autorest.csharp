@@ -27,7 +27,6 @@ extends:
     RegenerationJobCount: 20
     BuildAlphaVersion: true
     UseTypeSpecNext: ${{ parameters.UseTypeSpecNext }}
-    IncludeTestStage: ${{ parameters.UseTypeSpecNext }}
     EmitterPackageJsonPath: src/TypeSpec.Extension/Emitter.Csharp/package.json
     Packages:
     - name: generator
