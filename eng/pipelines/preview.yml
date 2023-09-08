@@ -40,8 +40,6 @@ extends:
       file: 'Microsoft.Azure.AutoRest.CSharp.*.nupkg'
       type: nuget
     PublishTarget: 'internal'
-    PublishDependsOn:
-    - Build
     SdkInitializationSteps:
     - pwsh: |
         $packageVersions = Get-Content "$(buildArtifactsPath)/package-versions.json" -Raw | ConvertFrom-Json
