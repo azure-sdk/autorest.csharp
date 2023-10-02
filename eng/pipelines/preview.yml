@@ -10,12 +10,12 @@ resources:
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-for-net
-      ref: refs/heads/main
+      ref: refs/heads/users/pahallis/cookiecutter
     - repository: azure-sdk-tools
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-tools
-      ref: refs/heads/main
+      ref: refs/heads/users/pahallis/cookiecutter
 
 pool:
   name: azsdk-pool-mms-win-2022-general
@@ -38,7 +38,6 @@ extends:
     - name: nuget package
       file: 'Microsoft.Azure.AutoRest.CSharp.*.nupkg'
       type: nuget
-    PublishTarget: 'internal'
     SdkInitializationSteps:
     - pwsh: |
         $packageVersions = Get-Content "$(buildArtifactsPath)/package-versions.json" -Raw | ConvertFrom-Json
