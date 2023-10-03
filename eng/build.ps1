@@ -43,11 +43,11 @@ if ($BuildNumber) {
     $versionTag = $BuildPrereleaseVersion ? "-alpha" : "-beta"
 
     # TODO: Remove 'x' suffix before merge    
-    $generatorVersion = "$generatorVersion$versionTag.$BuildNumber"
+    $generatorVersion = "$generatorVersion$versionTag.$BuildNumber.x"
     Write-Host "Setting output variable 'generatorVersion' to $generatorVersion"
     Write-Host "##vso[task.setvariable variable=generatorVersion;isoutput=true]$generatorVersion"
 
-    $emitterVersion = "$emitterVersion$versionTag.$BuildNumber"
+    $emitterVersion = "$emitterVersion$versionTag.$BuildNumber.x"
     Write-Host "Setting output variable 'emitterVersion' to $emitterVersion"
     Write-Host "##vso[task.setvariable variable=emitterVersion;isoutput=true]$emitterVersion"
 }
