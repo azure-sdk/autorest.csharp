@@ -25,7 +25,8 @@ extends:
   template: eng/pipelines/templates/stages/archetype-autorest-preview.yml@azure-sdk-tools
   parameters:
     RegenerationJobCount: 20
-    BuildAlphaVersion: true
+    BuildPrereleaseVersion: true
+    PublishTarget: Internal
     UseTypeSpecNext: ${{ parameters.UseTypeSpecNext }}
     EmitterPackageJsonPath: src/TypeSpec.Extension/Emitter.Csharp/package.json
     Packages:

@@ -1,6 +1,7 @@
 param(
     [string] $BuildNumber,
-    [string] $BuildAlphaVersion,
+    [string] $PublishTarget,
+    [string] $BuildPrereleaseVersion,
     [string] $Output
 )
 
@@ -10,7 +11,7 @@ $root = (Resolve-Path "$PSScriptRoot/..").Path.Replace('\', '/')
 Import-Module "$root/eng/Generation.psm1" -Force -DisableNameChecking
 Set-ConsoleEncoding
 
-[bool]$BuildAlphaVersion = $BuildAlphaVersion -ieq "true"
+[bool]$BuildPrereleaseVersion = $BuildPrereleaseVersion -ieq "true"
 
 $artifacts = "$root/artifacts"
 $output = $Output ? $Output : "$artifacts/ci-build"
@@ -39,7 +40,7 @@ $emitterVersion = node -p -e "require('$root/src/TypeSpec.Extension/Emitter.Csha
 
 if ($BuildNumber) {
     # set package versions
-    $versionTag = $BuildAlphaVersion ? "-alpha" : "-beta"
+    $versionTag = $BuildPrereleaseVersion ? "-alpha" : "-beta"
 
     # TODO: Remove 'x' suffix before merge    
     $generatorVersion = "$generatorVersion$versionTag.$BuildNumber"
@@ -102,7 +103,7 @@ try {
 
         $packageJson.version = $emitterVersion
 
-        if ($BuildAlphaVersion) {
+        if ($PublishTarget -ieq "internal") {
             $feedUrl = "https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-js-test-autorest@local/npm/registry"
             $packageJson.dependencies["@autorest/csharp"] = "$feedUrl/@autorest/csharp/-/csharp-$generatorVersion.tgz"
             $packageJson["tarballUrl"] = "$feedUrl/@azure-tools/typespec-csharp/-/typespec-csharp-$emitterVersion.tgz"
