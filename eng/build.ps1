@@ -52,13 +52,6 @@ if ($BuildNumber) {
     Write-Host "##vso[task.setvariable variable=emitterVersion;isoutput=true]$emitterVersion"
 }
 
-$packageMatrix = [ordered]@{
-    "generator" = $generatorVersion
-    "emitter" = $emitterVersion
-}
-
-$packageMatrix | ConvertTo-Json | Set-Content $output/package-versions.json
-
 # build the nuget package
 
 $versionOption = $BuildNumber ? "/p:Version=$generatorVersion" : ""
@@ -102,14 +95,7 @@ try {
         $packageJson = Get-Content -Raw "package.json" | ConvertFrom-Json -AsHashtable
 
         $packageJson.version = $emitterVersion
-
-        if ($PublishTarget -ieq "internal") {
-            $feedUrl = "https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-js-test-autorest@local/npm/registry"
-            $packageJson.dependencies["@autorest/csharp"] = "$feedUrl/@autorest/csharp/-/csharp-$generatorVersion.tgz"
-            $packageJson["tarballUrl"] = "$feedUrl/@azure-tools/typespec-csharp/-/typespec-csharp-$emitterVersion.tgz"
-        } else {
-            $packageJson.dependencies["@autorest/csharp"] = $generatorVersion
-        }
+        $packageJson.dependencies["@autorest/csharp"] = $generatorVersion
 
         $packageJson | ConvertTo-Json -Depth 100 | Out-File -Path "package.json" -Encoding utf8 -NoNewline -Force
     }
@@ -122,3 +108,19 @@ finally
 {
     Pop-Location
 }
+
+$feedUrl = "https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-js-test-autorest@local/npm/registry"
+
+$overrides = @{
+    "@autorest/csharp" = "$feedUrl/@autorest/csharp/-/csharp-$generatorVersion.tgz"
+    "@azure-tools/typespec-csharp" = "$feedUrl/@azure-tools/typespec-csharp/-/typespec-csharp-$emitterVersion.tgz"
+}
+
+$overrides | ConvertTo-Json | Set-Content "$output/overrides.json"
+
+$packageMatrix = [ordered]@{
+    "generator" = $generatorVersion
+    "emitter" = $emitterVersion
+}
+
+$packageMatrix | ConvertTo-Json | Set-Content "$output/package-versions.json"
