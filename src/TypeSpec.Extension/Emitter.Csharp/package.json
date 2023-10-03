@@ -1,78 +1,78 @@
 {
-    "name": "@azure-tools/typespec-csharp",
-    "version": "0.2.0",
-    "author": "Microsoft Corporation",
-    "description": "The typespec library that can be used to generate C# models from a TypeSpec REST protocol binding",
-    "homepage": "https://github.com/Microsoft/typespec",
-    "readme": "https://github.com/Azure/autorest.csharp/blob/feature/v3/src/TypeSpec.Extension/Emitter.Csharp/readme.md",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Azure/autorest.csharp.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Azure/autorest.csharp/issues"
-    },
-    "keywords": [
-        "typespec"
-    ],
-    "type": "module",
-    "main": "dist/src/index.js",
-    "scripts": {
-        "clean": "rimraf ./dist ./temp",
-        "build": "tsc -p .",
-        "watch": "tsc -p . --watch",
-        "pack": "npx webpack",
-        "lint-typespec-library": "tsp compile . --warn-as-error --import @typespec/library-linter --no-emit",
-        "test": "mocha dist/test/**/*.js",
-        "test-official": "c8 mocha --forbid-only dist/test/**/*.js",
-        "lint": "eslint . --ext .ts --max-warnings=0",
-        "lint:fix": "eslint . --fix --ext .ts",
-        "prettier:fix": "prettier --write --config .prettierrc.json ./src/**/*.ts ./test/**/*.ts",
-        "prettier": "prettier --check --config .prettierrc.json ./src/**/*.ts ./test/**/*.ts"
-    },
-    "files": [
-        "dist/src/**"
-    ],
-    "dependencies": {
-        "@autorest/csharp": "3.0.0-beta.20230309.1",
-        "fs-extra": "^10.1.0",
-        "js-yaml": "^4.1.0",
-        "json-serialize-refs": "0.1.0-0",
-        "winston": "^3.8.2"
-    },
-    "peerDependencies": {
-        "@azure-tools/typespec-azure-core": ">=0.34.0 <1.0.0",
-        "@azure-tools/typespec-client-generator-core": ">=0.34.0 <1.0.0",
-        "@typespec/compiler": ">=0.48.0 <1.0.0",
-        "@typespec/http": ">=0.48.0 <1.0.0",
-        "@typespec/library-linter": ">=0.48.0 <1.0.0",
-        "@typespec/lint": ">=0.48.0 <1.0.0",
-        "@typespec/rest": ">=0.48.0 <1.0.0",
-        "@typespec/versioning": ">=0.48.0 <1.0.0"
-    },
-    "devDependencies": {
-        "@azure-tools/typespec-azure-core": "0.34.0",
-        "@azure-tools/typespec-client-generator-core": "0.34.0",
-        "@typespec/compiler": "0.48.0",
-        "@typespec/http": "0.48.0",
-        "@typespec/lint": "0.48.0",
-        "@typespec/library-linter": "0.48.0",
-        "@typespec/rest": "0.48.0",
-        "@typespec/versioning": "0.48.0",
-        "@types/fs-extra": "^9.0.13",
-        "@types/js-yaml": "^4.0.5",
-        "@types/lodash.isequal": "^4.5.6",
-        "@types/mocha": "~9.1.0",
-        "@types/node": "~18.13.0",
-        "@types/prettier": "^2.6.3",
-        "@typespec/eslint-config-typespec": "0.48.0",
-        "@typespec/eslint-plugin": "0.48.0",
-        "c8": "~7.11.0",
-        "eslint": "^8.12.0",
-        "lodash.isequal": "^4.5.0",
-        "mocha": "~9.2.0",
-        "rimraf": "~3.0.2",
-        "typescript": "~5.1.5"
-    }
+  "author": "Microsoft Corporation",
+  "devDependencies": {
+    "mocha": "~9.2.0",
+    "@typespec/library-linter": "0.48.0",
+    "@types/node": "~18.13.0",
+    "@typespec/rest": "0.48.0",
+    "@typespec/lint": "0.48.0",
+    "@types/lodash.isequal": "^4.5.6",
+    "typescript": "~5.1.5",
+    "@typespec/compiler": "0.48.0",
+    "c8": "~7.11.0",
+    "@azure-tools/typespec-azure-core": "0.34.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/prettier": "^2.6.3",
+    "@typespec/eslint-plugin": "0.48.0",
+    "@azure-tools/typespec-client-generator-core": "0.34.0",
+    "lodash.isequal": "^4.5.0",
+    "@typespec/versioning": "0.48.0",
+    "@typespec/eslint-config-typespec": "0.48.0",
+    "@types/js-yaml": "^4.0.5",
+    "rimraf": "~3.0.2",
+    "eslint": "^8.12.0",
+    "@types/mocha": "~9.1.0",
+    "@typespec/http": "0.48.0"
+  },
+  "type": "module",
+  "name": "@azure-tools/typespec-csharp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azure/autorest.csharp.git"
+  },
+  "homepage": "https://github.com/Microsoft/typespec",
+  "description": "The typespec library that can be used to generate C# models from a TypeSpec REST protocol binding",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist/src/**"
+  ],
+  "license": "MIT",
+  "version": "0.2.0-alpha.20231003.4.x",
+  "readme": "https://github.com/Azure/autorest.csharp/blob/feature/v3/src/TypeSpec.Extension/Emitter.Csharp/readme.md",
+  "dependencies": {
+    "@autorest/csharp": "3.0.0-alpha.20231003.4.x",
+    "js-yaml": "^4.1.0",
+    "fs-extra": "^10.1.0",
+    "winston": "^3.8.2",
+    "json-serialize-refs": "0.1.0-0"
+  },
+  "bugs": {
+    "url": "https://github.com/Azure/autorest.csharp/issues"
+  },
+  "scripts": {
+    "test-official": "c8 mocha --forbid-only dist/test/**/*.js",
+    "prettier": "prettier --check --config .prettierrc.json ./src/**/*.ts ./test/**/*.ts",
+    "clean": "rimraf ./dist ./temp",
+    "build": "tsc -p .",
+    "pack": "npx webpack",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "lint": "eslint . --ext .ts --max-warnings=0",
+    "watch": "tsc -p . --watch",
+    "lint-typespec-library": "tsp compile . --warn-as-error --import @typespec/library-linter --no-emit",
+    "prettier:fix": "prettier --write --config .prettierrc.json ./src/**/*.ts ./test/**/*.ts",
+    "test": "mocha dist/test/**/*.js"
+  },
+  "keywords": [
+    "typespec"
+  ],
+  "peerDependencies": {
+    "@typespec/lint": ">=0.48.0 <1.0.0",
+    "@typespec/rest": ">=0.48.0 <1.0.0",
+    "@azure-tools/typespec-azure-core": ">=0.34.0 <1.0.0",
+    "@typespec/versioning": ">=0.48.0 <1.0.0",
+    "@typespec/http": ">=0.48.0 <1.0.0",
+    "@typespec/library-linter": ">=0.48.0 <1.0.0",
+    "@typespec/compiler": ">=0.48.0 <1.0.0",
+    "@azure-tools/typespec-client-generator-core": ">=0.34.0 <1.0.0"
+  }
 }
