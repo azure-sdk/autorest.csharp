@@ -42,11 +42,11 @@ if ($BuildNumber) {
     $versionTag = $BuildAlphaVersion ? "-alpha" : "-beta"
 
     # TODO: Remove 'x' suffix before merge    
-    $generatorVersion = "$generatorVersion$versionTag.$BuildNumber.x"
+    $generatorVersion = "$generatorVersion$versionTag.$BuildNumber"
     Write-Host "Setting output variable 'generatorVersion' to $generatorVersion"
     Write-Host "##vso[task.setvariable variable=generatorVersion;isoutput=true]$generatorVersion"
 
-    $emitterVersion = "$emitterVersion$versionTag.$BuildNumber.x"
+    $emitterVersion = "$emitterVersion$versionTag.$BuildNumber"
     Write-Host "Setting output variable 'emitterVersion' to $emitterVersion"
     Write-Host "##vso[task.setvariable variable=emitterVersion;isoutput=true]$emitterVersion"
 }
@@ -98,15 +98,19 @@ try {
     if ($BuildNumber) {
         Write-Host "Updating package.json use the new @autorest/csharp version`n"
 
-        $originalContent = Get-Content -Raw "package.json"
-        $packageFileContent = $originalContent -replace `
-            '"@autorest/csharp": ".*?"',
-            "`"@autorest/csharp`": `"$generatorVersion`""
+        $packageJson = Get-Content -Raw "package.json" | ConvertFrom-Json -AsHashtable
 
-        Set-Content -Path "package.json" -Value $packageFileContent -NoNewline
+        $packageJson.version = $emitterVersion
 
-        # update the emitter version
-        Invoke "npm version --no-git-tag-version $emitterVersion" -executePath $PWD
+        if ($BuildAlphaVersion) {
+            $feedUrl = "https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-js-test-autorest@local/npm/registry"
+            $packageJson.dependencies["@autorest/csharp"] = "$feedUrl/@autorest/csharp/-/csharp-$generatorVersion.tgz"
+            $packageJson["tarballUrl"] = "$feedUrl/@azure-tools/typespec-csharp/-/typespec-csharp-$emitterVersion.tgz"
+        } else {
+            $packageJson.dependencies["@autorest/csharp"] = $generatorVersion
+        }
+
+        $packageJson | ConvertTo-Json -Depth 100 | Out-File -Path "package.json" -Encoding utf8 -NoNewline -Force
     }
 
     #pack the emitter
@@ -117,4 +121,3 @@ finally
 {
     Pop-Location
 }
-
