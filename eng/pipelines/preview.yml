@@ -56,16 +56,14 @@ extends:
         $newContent | Set-Content $path -NoNewline
       displayName: 'Update Packages.Data.props'
       workingDirectory: $(sdkRepositoryPath)
-    TestMatrix:
-      Unit:
-        TestArguments: -RunUnitTests
-      ${{ if eq(parameters.UseTypeSpecNext, true) }}:
+    ${{ if eq(parameters.UseTypeSpecNext, true) }}:
+      TestMatrix:
         A_B:
-          TestArguments: -RunUnitTests -Filter "^[a-b]"
+          TestArguments: -Filter "^[a-b]"
         C_L:
-          TestArguments: -RunUnitTests -Filter "^[c-l]"
+          TestArguments: -Filter "^[c-l]"
         M:
-          TestArguments: -RunUnitTests -Filter "^[m]"
+          TestArguments: -Filter "^[m]"
         N_Z:
-          TestArguments: -RunUnitTests -Filter "^[n-z]"
+          TestArguments: -Filter "^[n-z]"
     PublishDependsOnTest: false

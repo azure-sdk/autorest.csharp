@@ -4,7 +4,8 @@ param(
     [string] $BuildNumber,
     [string] $PublishTarget,
     [string] $BuildPrereleaseVersion,
-    [string] $Output
+    [string] $Output,
+    [switch] $SkipUnitTests
 )
 
 $ErrorActionPreference = 'Stop'
@@ -104,6 +105,23 @@ try {
 finally
 {
     Pop-Location
+}
+
+if (!$SkipUnitTests) {
+    # test the generator
+    Invoke-LoggedCommand "dotnet test AutoRest.CSharp.sln /bl:artifacts/logs/debug.binlog --logger `"trx;LogFileName=$root/artifacts/test-results/debug.trx`"" -GroupOutput
+    Invoke-LoggedCommand "dotnet test AutoRest.CSharp.sln -c Release /bl:artifacts/logs/release.binlog --logger `"trx;LogFileName=$root/artifacts/test-results/release.trx`"" -GroupOutput
+
+    # test the emitter
+    Push-Location "$root/src/TypeSpec.Extension/Emitter.Csharp"
+    try {
+        Invoke-LoggedCommand "npm run prettier" -GroupOutput
+        Invoke-LoggedCommand "npm run build" -GroupOutput
+        Invoke-LoggedCommand "npm run test" -GroupOutput
+    }
+    finally {
+        Pop-Location
+    }
 }
 
 $feedUrl = "https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-js-test-autorest@local/npm/registry"
