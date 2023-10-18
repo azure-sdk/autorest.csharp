@@ -15,7 +15,7 @@ resources:
       type: github
       endpoint: Azure
       name: Azure/azure-sdk-tools
-      ref: refs/heads/main
+      ref: refs/heads/users/pahallis/cookiecutter
 
 pool:
   name: azsdk-pool-mms-win-2022-general
@@ -68,4 +68,4 @@ extends:
           TestArguments: -RunUnitTests -Filter "^[m]"
         N_Z:
           TestArguments: -RunUnitTests -Filter "^[n-z]"
-    PublishDependsOnTests: false
+    PublishDependsOnTest: false
