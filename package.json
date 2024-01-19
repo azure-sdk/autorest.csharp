@@ -8,5 +8,17 @@
     "@microsoft.azure/autorest.testserver": "3.3.48",
     "autorest": "3.6.3",
     "@azure-tools/unbranded-tests": "file:test/UnbrandedProjects"
+  },
+  "overrides": {
+    "@typespec/compiler": "0.52.0-dev.16",
+    "@typespec/http": "0.52.0-dev.6",
+    "@typespec/openapi": "0.52.0-dev.2",
+    "@typespec/rest": "0.52.0-dev.4",
+    "@typespec/versioning": "0.52.0-dev.2",
+    "@azure-tools/typespec-client-generator-core": "0.38.0-dev.9",
+    "@azure-tools/typespec-azure-core": "0.38.0-dev.7",
+    "@azure-tools/typespec-azure-resource-manager": "0.38.0-dev.5",
+    "@typespec/eslint-config-typespec": "0.52.0-dev.2",
+    "@typespec/library-linter": "0.52.0-dev.2"
   }
 }
